@@ -1,0 +1,10 @@
+[Unit]
+Description={{ minion_id }} Proxy Minion
+
+[Service]
+WorkingDirectory={{ minion_dir }}
+ExecStart=/usr/bin/salt-proxy --proxyid={{ minion_id }} -c {{ minion_dir }} --log-file=/var/log/salt/proxy-{{ minion_id }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

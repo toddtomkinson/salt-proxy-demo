@@ -1,5 +1,6 @@
 base:
-  'saltmaster.*': []
+  'saltmaster.*':
+    - proxies.marathon-cluster
   'mesos-*.*':
     - mesosphere_repos
     - zookeeper
