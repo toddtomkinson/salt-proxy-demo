@@ -42,4 +42,6 @@ def marathon():
         decode_type='json',
         decode=True,
     )
+    if not response or 'dict' not in response:
+        return {'marathon': None}
     return {'marathon': response['dict']}
