@@ -1,0 +1,5 @@
+{%- for number, server_data in salt['pillar.get']('zookeeper:servers', {}).items() -%}
+{%- if (server_data.host == salt['grains.get']('fqdn', 'localhost') or server_data.host in salt['grains.get']('fqdn_ip4', ['127.0.0.1'])) -%}
+{{ number }}
+{%- endif -%}
+{%- endfor -%}

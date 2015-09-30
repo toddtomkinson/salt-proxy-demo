@@ -1,0 +1,4 @@
+LIBPROCESS_PORT="5555"
+{% for name, value in marathon_settings.server.env.items() -%}¶
+  4 {{name}}="{{value}}"¶
+  5 {% endfor %}

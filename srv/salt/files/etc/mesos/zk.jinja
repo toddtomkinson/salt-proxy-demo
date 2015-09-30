@@ -1,0 +1,5 @@
+zk://
+{%- for _, server_data in salt['pillar.get']('zookeeper:servers', {}).items() -%}
+{{ server_data.host }}:2181{%- if not loop.last -%},{%- endif -%}
+{%- endfor -%}
+/mesos
