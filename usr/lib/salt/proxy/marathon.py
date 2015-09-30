@@ -61,14 +61,14 @@ def ping():
             decode=True,
         )
         log.debug(
-            'marathon.info returned succesfully: %s',
+            'ping returned succesfully: %s',
             response,
         )
         if 'text' in response and response['text'].strip() == 'pong':
             return True
     except Exception, ex:
         log.error(
-            'error calling marathon.info with base_url %s: %s',
+            'error calling marathon ping with base_url %s: %s',
             CONFIG[CONFIG_BASE_URL],
             ex,
         )
