@@ -26,3 +26,11 @@
     - mode: 644
     - template: jinja
 
+chronos-cluster-minion:
+  service.running:
+    - enable: True
+    - require:
+      - file: /usr/lib/systemd/system/chronos-cluster-minion.service
+    - watch:
+      - file: /usr/lib/systemd/system/chronos-cluster-minion.service
+
