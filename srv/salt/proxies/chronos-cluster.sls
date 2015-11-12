@@ -11,6 +11,7 @@
         master: saltmaster.dev.saltstack.net
         proxy_dirs: [/usr/lib/salt/proxy]
         root_dir: /etc/salt/proxies/chronos-cluster
+        add_proxymodule_to_opts: False
     - user: root
     - group: root
     - mode: 644

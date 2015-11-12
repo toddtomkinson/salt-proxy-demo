@@ -1,6 +1,9 @@
 ##Salt Proxy Minion Demo
 
-TODO: explanation
+This project sets up a local Vagrant salt cluster, including 1 master and 3
+minions. The salt configuration sets up a mesos/marathon/chronos cluster on the
+3 salt minions, and additionally sets up 2 proxy minions on the master, one to
+manage the marathon cluster and another to manage the chronos cluster.
 
 Usage
 ---
@@ -17,6 +20,12 @@ To finish the salt setup login to the master node, accept the pending minion
 keys, then perform a highstate:
 
 - `vagrant ssh saltmaster`
+- `sudo salt-key -A`
+- `sudo salt \* state.highstate` (you may need to run this more than once)
+
+Now accept the proxy minion keys and run a highstate on the marathon and
+chronos clusters:
+
 - `sudo salt-key -A`
 - `sudo salt \* state.highstate`
 

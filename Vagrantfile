@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
     end
     master.vm.provision "shell", inline: <<-SHELL
       wget -O install_salt.sh https://bootstrap.saltstack.com
-      sudo sh install_salt.sh -M git 2015.8
+      sudo sh install_salt.sh -M git develop
 
       # master
       sudo rm -Rf /srv/salt && sudo ln -s /vagrant/srv/salt /srv/salt
@@ -68,7 +68,7 @@ Vagrant.configure(2) do |config|
       end
       minion.vm.provision "shell", inline: <<-SHELL
         wget -O install_salt.sh https://bootstrap.saltstack.com
-        sudo sh install_salt.sh git 2015.8
+        sudo sh install_salt.sh git develop
         sudo mkdir -p /etc/salt/minion.d
         sudo printf 'master: 192.168.235.10' > /etc/salt/minion.d/master.conf
         sudo systemctl stop salt-minion
