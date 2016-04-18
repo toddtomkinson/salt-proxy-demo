@@ -1,9 +1,11 @@
 ##Salt Proxy Minion Demo
 
-This project sets up a local Vagrant salt cluster, including 1 master and 3
-minions. The salt configuration sets up a mesos/marathon/chronos cluster on the
-3 salt minions, and additionally sets up 2 proxy minions on the master, one to
-manage the marathon cluster and another to manage the chronos cluster.
+This project sets up a local Vagrant salt cluster, including 1 master, 3
+minions, and 1 load balancer. The salt configuration sets up a
+mesos/marathon/chronos cluster on the 3 salt minions, and additionally sets up
+2 proxy minions on the master, one to manage the marathon cluster and another
+to manage the chronos cluster. The load balancer consists of a nginx instance
+that is configured via salt to point to apps running in the marathon cluster.
 
 Usage
 ---
@@ -41,4 +43,11 @@ file):
 - mesos-1.dev.saltstack.net
 - mesos-2.dev.saltstack.net
 - mesos-3.dev.saltstack.net
+- lb.dev.saltstack.net
+
+The following hosts map to the lb.dev.saltstack.net server and hit the
+load-balancing endpoints for the given back-end services:
+
+- apache.dev.saltstack.net
+- nginx.dev.saltstack.net
 
