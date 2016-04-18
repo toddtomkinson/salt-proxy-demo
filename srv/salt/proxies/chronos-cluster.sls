@@ -15,6 +15,8 @@
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - file: /etc/salt/proxies/marathon-cluster
 
 /usr/lib/systemd/system/chronos-cluster-minion.service:
   file.managed:
@@ -32,6 +34,8 @@ chronos-cluster-minion:
     - enable: True
     - require:
       - file: /usr/lib/systemd/system/chronos-cluster-minion.service
+      - file: /etc/salt/proxies/marathon-cluster/proxy
     - watch:
       - file: /usr/lib/systemd/system/chronos-cluster-minion.service
+      - file: /etc/salt/proxies/marathon-cluster/proxy
 

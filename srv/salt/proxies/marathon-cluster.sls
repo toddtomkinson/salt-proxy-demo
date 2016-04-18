@@ -12,9 +12,12 @@
         proxy_dirs: [/usr/lib/salt/proxy]
         root_dir: /etc/salt/proxies/marathon-cluster
         add_proxymodule_to_opts: False
+        mine_interval: 1
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - file: /etc/salt/proxies/marathon-cluster
 
 /usr/lib/systemd/system/marathon-cluster-minion.service:
   file.managed:
@@ -32,6 +35,8 @@ marathon-cluster-minion:
     - enable: True
     - require:
       - file: /usr/lib/systemd/system/marathon-cluster-minion.service
+      - file: /etc/salt/proxies/marathon-cluster/proxy
     - watch:
       - file: /usr/lib/systemd/system/marathon-cluster-minion.service
+      - file: /etc/salt/proxies/marathon-cluster/proxy
 
