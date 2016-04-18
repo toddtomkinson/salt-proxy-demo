@@ -1,7 +1,7 @@
 nginx:
   marathon_app.config:
     - config:
-        cpus: 0.5
+        cpus: 0.25
         mem: 128
         instances: 3
         container:
