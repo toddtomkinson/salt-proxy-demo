@@ -12,5 +12,6 @@ base:
   'marathon-cluster':
     - apps.hello
     - apps.nginx
+    - apps.apache
   'chronos-cluster':
     - jobs.hello
