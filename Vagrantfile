@@ -35,6 +35,7 @@ Vagrant.configure(2) do |config|
     master.vm.provision "shell", inline: <<-SHELL
       wget -O install_salt.sh https://bootstrap.saltstack.com
       sudo sh install_salt.sh -M git v2015.8.8
+      yum -y reinstall python-backports-*
 
       # master
       sudo rm -Rf /srv/salt && sudo ln -s /vagrant/srv/salt /srv/salt
@@ -69,6 +70,7 @@ Vagrant.configure(2) do |config|
       minion.vm.provision "shell", inline: <<-SHELL
         wget -O install_salt.sh https://bootstrap.saltstack.com
         sudo sh install_salt.sh git v2015.8.8
+        yum -y reinstall python-backports-*
         sudo mkdir -p /etc/salt/minion.d
         sudo printf 'master: 192.168.235.10' > /etc/salt/minion.d/master.conf
         sudo systemctl stop salt-minion
@@ -89,6 +91,7 @@ Vagrant.configure(2) do |config|
     lb.vm.provision "shell", inline: <<-SHELL
       wget -O install_salt.sh https://bootstrap.saltstack.com
       sudo sh install_salt.sh git v2015.8.8
+      yum -y reinstall python-backports-*
       sudo mkdir -p /etc/salt/minion.d
       sudo printf 'master: 192.168.235.10' > /etc/salt/minion.d/master.conf
       sudo systemctl stop salt-minion
