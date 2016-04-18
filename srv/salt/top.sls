@@ -9,6 +9,10 @@ base:
     - mesos
     - marathon
     - chronos
+  'lb.*':
+    - lb
+    - apps.nginx-lb
+    - apps.apache-lb
   'marathon-cluster':
     - apps.hello
     - apps.nginx

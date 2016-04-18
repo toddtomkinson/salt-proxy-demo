@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
     end
     master.vm.provision "shell", inline: <<-SHELL
       wget -O install_salt.sh https://bootstrap.saltstack.com
-      sudo sh install_salt.sh -M git develop
+      sudo sh install_salt.sh -M git v2015.8.8
 
       # master
       sudo rm -Rf /srv/salt && sudo ln -s /vagrant/srv/salt /srv/salt
@@ -68,7 +68,7 @@ Vagrant.configure(2) do |config|
       end
       minion.vm.provision "shell", inline: <<-SHELL
         wget -O install_salt.sh https://bootstrap.saltstack.com
-        sudo sh install_salt.sh git develop
+        sudo sh install_salt.sh git v2015.8.8
         sudo mkdir -p /etc/salt/minion.d
         sudo printf 'master: 192.168.235.10' > /etc/salt/minion.d/master.conf
         sudo systemctl stop salt-minion
@@ -76,6 +76,25 @@ Vagrant.configure(2) do |config|
         sudo systemctl start salt-minion
       SHELL
     end
+  end
+
+  config.vm.define 'lb' do |lb|
+    lb.vm.hostname = 'lb.%s' % DOMAIN
+    lb.hostmanager.aliases = ["nginx.%s" % DOMAIN, "apache.%s" % DOMAIN]
+    lb.vm.network "private_network", ip: "192.168.235.19"
+    lb.vm.provider "virtualbox" do |vm|
+      vm.memory = 512
+      vm.cpus = 1
+    end
+    lb.vm.provision "shell", inline: <<-SHELL
+      wget -O install_salt.sh https://bootstrap.saltstack.com
+      sudo sh install_salt.sh git v2015.8.8
+      sudo mkdir -p /etc/salt/minion.d
+      sudo printf 'master: 192.168.235.10' > /etc/salt/minion.d/master.conf
+      sudo systemctl stop salt-minion
+      sleep 2
+      sudo systemctl start salt-minion
+    SHELL
   end
 
 end

@@ -1,0 +1,17 @@
+# This file is managed by salt!
+
+upstream {{ appname }}-lb {
+{% for task in tasks %}
+  server {{ task['host'] }}:{{ task['ports'][0] }};
+{% endfor %}
+}
+
+server {
+    listen       80;
+    server_name  {{ appname }}.dev.saltstack.net;
+
+    location / {
+        proxy_pass http://{{ appname }}-lb;
+        add_header X-Server $upstream_addr;
+    }
+}
