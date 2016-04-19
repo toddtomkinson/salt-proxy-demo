@@ -40,9 +40,11 @@ Vagrant.configure(2) do |config|
       # master
       sudo rm -Rf /srv/salt && sudo ln -s /vagrant/srv/salt /srv/salt
       sudo rm -Rf /srv/pillar && sudo ln -s /vagrant/srv/pillar /srv/pillar
+      sudo rm -Rf /srv/reactor && sudo ln -s /vagrant/srv/reactor /srv/reactor
       sudo mkdir -p /etc/salt/master.d
       sudo printf 'file_roots: {base: [/srv/salt]}' > /etc/salt/master.d/file_roots.conf
       sudo printf 'pillar_roots: {base: [/srv/pillar]}' > /etc/salt/master.d/pillar_roots.conf
+      sudo printf 'reactor: [{"salt/marathon/marathon-cluster/deployment_success": ["/srv/reactor/update_lb.sls"]}]' > /etc/salt/master.d/reactor.conf
       sudo mkdir -p /etc/salt/minion.d
       sudo systemctl stop salt-master
       sleep 2
