@@ -28,6 +28,7 @@ from __future__ import absolute_import
 
 import logging
 import threading
+import time
 
 import salt.utils.http
 
@@ -103,6 +104,7 @@ class EventReceiver(object):
                         log.info('Marathon event: deployment_success')
                         # update the registered mine functions
                         __salt__['mine.update']()
+                        time.sleep(2.0)
                         # publish the deployment_success event
                         __salt__['event.send'](
                             'salt/marathon/{0}/deployment_success'.format(
